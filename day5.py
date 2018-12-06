@@ -120,5 +120,4 @@ def test_get_reacted_polymer_random(impl, random_data):
 
 def test_get_reacted_polymer_solution(impl, data):
     reacted = impl(data)
-    assert len(reacted) == 10
-    # assert "?" == reacted
+    assert 11814 == len(reacted)
