@@ -121,3 +121,28 @@ def test_get_reacted_polymer_random(impl, random_data):
 def test_get_reacted_polymer_solution(impl, data):
     reacted = impl(data)
     assert 11814 == len(reacted)
+
+
+def improved_polymers(polymer):
+    for letter in string.ascii_lowercase:
+        yield "".join(x for x in polymer if x.lower() != letter)
+
+
+def test_improved_polymers():
+    improved = list(improved_polymers("aAbBzZbBa"))
+    assert improved[0] == "bBzZbB"
+    assert improved[1] == "aAzZa"
+    assert improved[-1] == "aAbBbBa"
+
+
+def get_shortest_improved_polymer(polymer):
+    return min(improved_polymers(polymer), key=lambda p: len(get_reacted_polymer(p)))
+
+
+def test_get_shortest_improved_polymer(input, expected_output):
+    assert get_shortest_improved_polymer(input) == expected_output
+
+
+def test_get_shortest_improved_polymer_solution(data):
+    best = get_shortest_improved_polymer(data)
+    assert 4282 == len(get_reacted_polymer(best))
